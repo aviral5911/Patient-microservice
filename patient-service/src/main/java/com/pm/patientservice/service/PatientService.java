@@ -6,6 +6,7 @@ import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientUpdateRequestDTO;
 import com.pm.patientservice.exceptions.EmailAlreadyExistException;
 import com.pm.patientservice.exceptions.PatientNotFoundException;
+import com.pm.patientservice.grpc.BillingServiceGrpcClient;
 import com.pm.patientservice.model.Patient;
 import com.pm.patientservice.repo.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import java.util.UUID;
 public class PatientService {
     @Autowired    // later professionally we use constructors to do DI instead of @Autowire
     private PatientRepository repo;
+
+    @Autowired
+    BillingServiceGrpcClient grpcClient;
 
     // get all patients
     public List<PatientResponseDTO> getAllPatient(){
@@ -35,6 +39,8 @@ public class PatientService {
         }
 
         Patient patient = repo.save(Mapper.toPatient(patientRequestDTO));
+
+        grpcClient.createBillingAccount(patient.getId().toString() , patient.getName() , patient.getEmail());
 
         return Mapper.toDTO(patient);
     }
