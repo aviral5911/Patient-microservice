@@ -1,5 +1,6 @@
 package com.pm.patientservice.service;
 
+import com.pm.patientservice.KafkaProducer;
 import com.pm.patientservice.dto.Mapper;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.dto.PatientRequestDTO;
@@ -24,6 +25,9 @@ public class PatientService {
     @Autowired
     BillingServiceGrpcClient grpcClient;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
+
     // get all patients
     public List<PatientResponseDTO> getAllPatient(){
         List<Patient> patients = repo.findAll();
@@ -41,6 +45,8 @@ public class PatientService {
         Patient patient = repo.save(Mapper.toPatient(patientRequestDTO));
 
         grpcClient.createBillingAccount(patient.getId().toString() , patient.getName() , patient.getEmail());
+
+        kafkaProducer.sendEvent(patient);
 
         return Mapper.toDTO(patient);
     }
