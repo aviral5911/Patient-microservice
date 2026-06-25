@@ -1,0 +1,16 @@
+
+server:
+  port: 4004
+
+
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: patient-route
+              uri: http://patient-service:4000
+              predicates:
+                - Path=/patient,/patient/**
