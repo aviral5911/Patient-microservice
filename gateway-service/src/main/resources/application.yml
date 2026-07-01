@@ -14,3 +14,12 @@ spring:
               uri: http://patient-service:4000
               predicates:
                 - Path=/patient,/patient/**
+              filters:
+                - JwtValidation
+
+            - id: auth-service-route
+              uri: http://auth-service:4005
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
