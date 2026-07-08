@@ -13,7 +13,7 @@ public class BillingGrpcService extends BillingServiceGrpc.BillingServiceImplBas
     public void createBillingAccount(billing.BillingRequest billingRequest,
                                      StreamObserver<billing.BillingResponse> responseObserver){
 
-        //business login calling service then repo layers
+        //business login calling service then repo layers - like creating billing account
 
 
         System.out.println("GRPC METHOD HIT");

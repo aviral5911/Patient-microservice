@@ -1,7 +1,6 @@
-package com.pm.patientservice;
+package com.pm.patientservice.kafka;
 
 import com.pm.patientservice.model.Patient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import patient.events.PatientEvent;

@@ -1,6 +1,8 @@
 package com.pm.authservice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +17,8 @@ public class User {
     private UUID id;
 
     @Column(unique = true, nullable = false)
+    @Email
+    @NotBlank
     private String email;
 
     @Column(nullable = false)

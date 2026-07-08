@@ -1,6 +1,6 @@
 package com.pm.patientservice.service;
 
-import com.pm.patientservice.KafkaProducer;
+import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.dto.Mapper;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.dto.PatientRequestDTO;
